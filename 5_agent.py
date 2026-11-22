@@ -9,7 +9,7 @@ sets the limits, and asks a human before any money moves.
     Thought -> Action (tool call) -> Observation (tool result) -> repeat -> Final answer
 
 Run:  pip install -r requirements.txt
-      export GEMINI_API_KEY="your-key"      (or the script asks for it)
+      copy .env.example to .env and paste your key there   (or the script asks for it)
       python 5_agent.py
 """
 
@@ -17,10 +17,12 @@ import json
 import os
 from getpass import getpass
 
+from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
-MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+load_dotenv()  # reads GEMINI_API_KEY from the .env file, if there is one
+MODEL = os.environ.get("GEMINI_MODEL") or "gemini-2.5-flash"
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY") or getpass("Gemini API key: "))
 MAX_STEPS = 8  # guard 1: the loop always ends
 

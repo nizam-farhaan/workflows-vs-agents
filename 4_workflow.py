@@ -12,7 +12,7 @@ The idea: YOUR CODE decides every step. The LLM only does the work inside a step
 Patterns used:  routing (step 2), prompt chaining (steps 1 -> 3), evaluator-optimizer (step 4)
 
 Run:  pip install -r requirements.txt
-      export GEMINI_API_KEY="your-key"      (or the script asks for it)
+      copy .env.example to .env and paste your key there   (or the script asks for it)
       python 4_workflow.py
 """
 
@@ -20,10 +20,12 @@ import json
 import os
 from getpass import getpass
 
+from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
-MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")  # change in one place
+load_dotenv()  # reads GEMINI_API_KEY from the .env file, if there is one
+MODEL = os.environ.get("GEMINI_MODEL") or "gemini-2.5-flash"  # change in one place
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY") or getpass("Gemini API key: "))
 
 

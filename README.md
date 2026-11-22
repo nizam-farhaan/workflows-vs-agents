@@ -417,10 +417,24 @@ Read the traces of the failures. Group them by cause: wrong tool, bad arguments,
 
 You need Python 3.10 or newer.
 
+**Step 1: install**
+
 ```bash
 pip install -r requirements.txt
-export GEMINI_API_KEY="your-key"     # free key: https://aistudio.google.com/apikey
-                                     # Windows PowerShell: $env:GEMINI_API_KEY="your-key"
+```
+
+**Step 2: add your API key.** Get a free key at https://aistudio.google.com/apikey. Then make a copy of `.env.example` named `.env` and paste your key after the `=` sign:
+
+```
+GEMINI_API_KEY=AIza...your-key...
+```
+
+`.env` is in `.gitignore`, so your key never goes to GitHub. Never put the key inside the `.py` files.
+(No `.env` file? The scripts ask you for the key when they start. A `GEMINI_API_KEY` environment variable also works.)
+
+**Step 3: run**
+
+```bash
 python 4_workflow.py
 python 5_agent.py
 ```
@@ -437,6 +451,6 @@ os.environ["GEMINI_API_KEY"] = userdata.get("GEMINI_API_KEY")
 !python 4_workflow.py
 ```
 
-The default model is `gemini-2.5-flash`. To use another model, set `GEMINI_MODEL`.
+The default model is `gemini-2.5-flash`. To use another model, set `GEMINI_MODEL` in `.env`.
 
 **Sources:** [Building effective agents (Anthropic)](https://www.anthropic.com/engineering/building-effective-agents) · [ReAct paper (Yao et al., 2022)](https://arxiv.org/abs/2210.03629)
